@@ -1,0 +1,1 @@
+val lambda: (Long, Long) -> Long = TODO("Provide implementation")

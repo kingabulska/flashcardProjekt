@@ -16,7 +16,7 @@ fun main() {
                 term = input
 
             } else {
-                println("The card $input already exists. Try again:")
+                println("The card \"$input\" already exists. Try again:")
                 input = readLine()!!
 
             }
@@ -29,29 +29,14 @@ fun main() {
             if (!pack.checkIfDefinitionExist(input)) {
                 definition = input
             } else {
-                println("The card $input already exists. Try again:")
+                println("The definition \"$input\" already exists. Try again:")
                 input = readLine()!!
             }
         }
         pack.addCard(term, definition)
-        definition == null
-        term == null
+        definition = null
+        term = null
     }
+    pack.startLearning(n)
 }
 
-fun checkDefinition(flashcards: MutableMap<String, String>) {
-    val size = flashcards.size
-
-    for ((key, value) in flashcards) {
-
-        println("Print the definition of \"$key\":")
-        val userValue = readLine()!!
-
-        if(userValue == value) {
-            println("Correct answer")
-        } else {
-            println("Wrong answer. The correct one is \"$value\".")
-        }
-    }
-
-}

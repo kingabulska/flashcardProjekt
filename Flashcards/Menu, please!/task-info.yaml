@@ -302,6 +302,115 @@ files:
     \  }\n            )\n        }\n        (startPhrases + repeatingPhrases)\n  \
     \  }\n\n}\n\n"
   learner_created: false
+- name: src/flashcards/Pack.kt
+  visible: true
+  text: |-
+    package flashcards
+
+    import java.lang.instrument.ClassDefinition
+
+    class Pack () {
+        private val flashcardPack: MutableList<Flashcard> = mutableListOf()
+
+        fun addCard(term: String, definition: String) {
+            val flashcard = Flashcard(term, definition)
+            flashcardPack.add(flashcard)
+        }
+        fun checkIfTermExist(inputTerm: String): Boolean {
+            return flashcardPack.firstOrNull { it.term == inputTerm } != null
+        }
+        fun checkIfDefinitionExist(inputTerm: String): Boolean {
+            return flashcardPack.firstOrNull { it.definition == inputTerm } != null
+        }
+
+        fun startLearning(n: Int) {
+            for (i in 0 until n) {
+                val flashcard = flashcardPack[i]
+                println("Print the definition of \"${flashcard.term}\":")
+                val input = readLine()!!
+                val definition = flashcard.definition
+                if (input == definition) {
+                    println("Correct answer.")
+                } else {
+                    if (checkIfDefinitionExist(input)) {
+                        val rightTerm = flashcardPack.first{it.definition == input}.term
+
+                        println("Wrong answer. " +
+                                "The correct one is \"$definition\", you've just written the definition of " +
+                                "\"$rightTerm\".")
+                    } else {
+                        println("Wrong answer. The correct one is \"$definition\".")
+                    }
+                }
+            }
+        }
+    }
+  learner_created: true
+- name: src/flashcards/Main.kt
+  visible: true
+  text: |+
+    package flashcards
+
+    fun main() {
+        val pack = Pack()
+
+        println("Input the number of cards:")
+        val n = readLine()!!.toInt()
+        var term: String? = null
+        var definition:String? =null
+
+        for (i in 1..n) {
+            println("The card #$i:")
+            var input = readLine()!!
+            while (term == null) {
+                if (!pack.checkIfTermExist(input)) {
+                    term = input
+
+                } else {
+                    println("The card \"$input\" already exists. Try again:")
+                    input = readLine()!!
+
+                }
+            }
+
+
+            println("The definition of the card #$i:")
+            input = readLine()!!
+            while (definition == null) {
+                if (!pack.checkIfDefinitionExist(input)) {
+                    definition = input
+                } else {
+                    println("The definition \"$input\" already exists. Try again:")
+                    input = readLine()!!
+                }
+            }
+            pack.addCard(term, definition)
+            definition = null
+            term = null
+        }
+
+        pack.startLearning(n)
+    }
+
+  learner_created: true
+- name: src/flashcards/Flashcard.kt
+  visible: true
+  text: |-
+    package flashcards
+
+    class Flashcard (val term: String, val definition: String) {
+
+    }
+  learner_created: true
+- name: src/flashcards/flashcards.txt
+  visible: true
+  learner_created: true
+- name: capitalsNew.txt
+  visible: true
+  learner_created: true
+- name: capitals.txt
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/83/stages/461/implement
-status: Unchecked
-record: -1
+status: Failed
+record: 5

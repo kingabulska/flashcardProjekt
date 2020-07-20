@@ -1,1 +1,2 @@
-Great Britain London
+Russia  Moscow  6
+France  Paris  4

@@ -1,7 +1,15 @@
 package flashcards
 
-fun main() {
+fun main(args: Array<String>) {
     val pack = Pack()
+
+    if(args.isNotEmpty() && args[0] == "-import"){
+        val fileName = args[1]
+        pack.startImport(fileName)
+    } else if (args.size > 2 && args[2] == "-import") {
+        val fileName = args[3]
+        pack.startImport(fileName)
+    }
 
     val printAction = "Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):"
     println(printAction)
@@ -29,5 +37,12 @@ fun main() {
         pack.log.add(input!!)
     }
     println("Bye bye!")
+    if(args.isNotEmpty() && args[0] == "-export"){
+        val fileName = args[1]
+        pack.endExport(fileName)
+    } else if(args.size > 2 && args[2] == "-export") {
+        val fileName = args[3]
+        pack.endExport(fileName)
+    }
 }
 

@@ -1,2 +1,2 @@
-Russia  Moscow  6
-France  Paris  4
+France  Paris  6
+Russia  Moscow  1

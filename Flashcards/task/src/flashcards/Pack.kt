@@ -283,6 +283,50 @@ class Pack () {
 
         println("The Log has been saved.")
     }
+    fun startImport(fileName: String) {
+
+        val file = File(fileName)
+
+
+            val lines = file.readLines()
+            val n = lines.size
+
+            for (line in lines) {
+                val splitLine = line.split("  ")
+                val term = splitLine[0]
+                val definition = splitLine[1]
+                val errors = splitLine[2].toInt()
+
+                if (!this.checkIfTermExist(term) ) {
+                    flashcardPack.add(Flashcard(term, definition, errors))
+                } else if (checkIfTermExist(term)) {
+                    val element = flashcardPack.first {it.term == term}
+                    flashcardPack.remove(element)
+                    flashcardPack.add(Flashcard(term, definition, errors))
+                }
+            }
+
+            val loaded = "$n cards have been loaded."
+            println(loaded)
+            log.add(loaded)
+
+            /*val fileNotFound = "File not found."
+            println(fileNotFound)
+            log.add(fileNotFound)*/
+
+
+    }
+
+    fun endExport(fileName: String) {
+
+        val file = File(fileName)
+        val size = flashcardPack.size
+        file.writeText(this.toString())
+
+        val savaed = "$size cards have been saved."
+        println(savaed)
+        log.add(savaed)
+    }
 
     override fun toString(): String {
         return flashcardPack.joinToString(
